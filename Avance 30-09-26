@@ -1,0 +1,148 @@
+//Equipo
+//Chiquete Juan
+//MAchado Angel
+//Lizarraga Julio
+//Lopez Victor
+//Jonathan
+
+
+package explorador;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author proye
+ */
+public class Explorador {
+        int agua=100, comida=100, energia=100, oro=20, dia=1;
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner leer = new Scanner(System.in);
+        int agua=100, comida=100, energia=100, oro=20, dia=1, muerte=4;
+        boolean cuchillo=false, botiquin=false;
+        String estado="normal";
+        System.out.println("Bienvenido al juego de exploracion\n");
+        for(dia=1; dia<=11; dia++){
+            System.out.println("\n\n~~~~~~~~~~~Estas en el dia "+dia+"~~~~~~~~~~~");
+            if(agua>100){
+                agua=100;
+            }
+            if(comida>100){
+                comida=100;
+            }
+            if(energia>100){
+                energia=100;
+            }
+            System.out.println("Agua:" + agua +" Comida:" + comida +" Energia:" + energia +" Oro:" + oro);
+            System.out.println("Estado: " + estado);
+            if(cuchillo==true){
+                System.out.println("Tienes un cuchillo");
+            }if(botiquin==true){
+                System.out.println("Tienes un botiquin");
+            }
+            if(estado.equals("envenedado")){
+                muerte--;
+                System.out.println("Estas envenenado, tienes "+muerte+" dias o mueres");
+                if(muerte==0){
+                agua = 0;
+                comida = 0;
+                energia = 0;
+                }
+                if(botiquin==true){
+                    estado="normal";
+                    System.out.println("Te curaste del veneno");
+                    muerte=4;
+                }
+            }
+            System.out.println("\n Puedes: \n 1-Explorar\n 2-Descansar\n 3-Racionar\n 4-Comprar");
+            String acc = leer.nextLine();
+            if(acc.equalsIgnoreCase("explorar") || acc.equals("1")){
+                System.out.println("Exploraste");
+                agua -= 15;
+                comida -= 10;
+                energia -= 20;
+                int al= 2;
+                if(al==3){
+                oro += 10;}
+                if(al==2){
+                    if(cuchillo==false){
+                        estado="envenedado";
+                        System.out.println("Te pico una serpiente");
+                    }else{
+                        System.out.println("Te salvaste de una serpiente");
+                    }
+                }
+            }
+            
+            else if(acc.equalsIgnoreCase("descansar") || acc.equals("2")){
+                System.out.println("Descansaste");
+                agua -= 10;
+                comida -= 10;
+                energia += 25;
+            }
+            
+            else if(acc.equalsIgnoreCase("racionar") || acc.equals("3")){
+                System.out.println("Comiste poco");
+                agua -= 5;
+                comida -= 5;
+                energia -= 5;
+            }
+            //Comprar
+            else if(acc.equalsIgnoreCase("comprar") || acc.equals("4")){
+                if(oro>=10){
+                System.out.println("Que quieres comprar??\n"
+                        + "agua, comida");
+                acc = leer.nextLine();
+                if(acc.equalsIgnoreCase("agua")){
+                    if(agua<=80){
+                        oro-=10;
+                        agua+=20;
+                    }else{
+                        System.out.println("Ya tienes mucha agua");
+                    }
+                }else if(acc.equalsIgnoreCase("comida")){
+                    if(comida<=80){
+                        oro-=10;
+                        comida+=20;
+                    }else{
+                        System.out.println("Ya tienes mucha comida");
+                    }
+                }else if(acc.equalsIgnoreCase("cuchillo")){
+                    oro-=10;
+                    cuchillo=true;
+                }else if(acc.equalsIgnoreCase("Botiquin")){
+                    oro-=10;
+                    botiquin=true;
+                }
+            }else{
+                    System.out.println("No puedes comprar");
+                dia--;
+            }}
+            else{
+                System.out.println("No entendi tu accion");
+                dia--;
+            }
+            if(dia>=10){
+                System.out.println("Felicidades, ganaste \n Quieres jugar otra vez??");
+                acc=leer.nextLine();
+                if (acc.equalsIgnoreCase("si")){
+                    dia=0;
+                }else{
+                    System.out.println("Hasta la proxima");
+                }
+            }
+            if(agua<=0 || comida<=0 || energia<=0){
+                System.out.println("Moriste");
+                acc=leer.nextLine();
+                if (acc.equalsIgnoreCase("si")){
+                    dia=0;
+                }else{
+                    System.out.println("Hasta la proxima");
+                }
+            }
+            }
+        }
+    } 
